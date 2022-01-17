@@ -52,10 +52,10 @@ export const CoinInfoContextProvider: FC = ({ children }) => {
   };
 
   const streamSinglePrice = (symbol: string) => {
-    var ccStreamer = new WebSocket(`${CRYPTO_COMPARE_WSS}?apiKey=${CRYPTO_COMPARE_API_KEY}`);
+    const ccStreamer = new WebSocket(`${CRYPTO_COMPARE_WSS}?apiKey=${CRYPTO_COMPARE_API_KEY}`);
 
     ccStreamer.onopen = function onStreamOpen() {
-      var subRequest = {
+      const subRequest = {
         action: "SubAdd",
         subs: [`0~${streamExchange}~${symbol}~${currency}`],
       };
@@ -63,7 +63,8 @@ export const CoinInfoContextProvider: FC = ({ children }) => {
     };
 
     ccStreamer.onmessage = function onStreamMessage(message) {
-      const data = message.data;
+      const data = JSON.parse(message.data);
+
       dispatch({
         type: STREAM_TRADE_INFO,
         payload: data,

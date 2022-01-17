@@ -3,23 +3,23 @@ import React, { useContext, useEffect } from 'react';
 import { CoinInfoContext } from '../context/CoinInfo';
 
 import { Button, Icon, List, ListItem } from '@ui-kitten/components';
+import { OverviewStackScreens } from '../router';
 
-export const HomeScreen = () => {
+type HomeScreenProps = {
+  navigation: any;
+}
+
+export const HomeScreen = ({ navigation }: HomeScreenProps) => {
   const coinInfoContext = useContext(CoinInfoContext);
-  const { getTopAssets, assets, streamSinglePrice, streamedInfo } = coinInfoContext;
+  const { getTopAssets, assets, streamedInfo } = coinInfoContext;
 
   useEffect(() => {
     getTopAssets();
-    // streamSinglePrice('ETH');
   }, [])
-
-  useEffect(() => {
-    // console.log('>>> streamedInfo', streamedInfo);
-  }, [streamedInfo])
 
   const addToFavorite = () => {};
 
-  const goToSinglePage = () => {};
+  const goToSinglePage = (symbol: string) => navigation.navigate(OverviewStackScreens.SingleCoin, { symbol });
 
   const renderItemAccessory = (props: any) => (
     <Button size='medium' appearance='ghost' accessoryLeft={<Icon color='grey' name='star-outline'/>} onPress={addToFavorite} />
@@ -36,7 +36,7 @@ export const HomeScreen = () => {
       description={`Price: ${parseFloat(item.priceUsd).toFixed(2)} USD`}
       accessoryLeft={renderItemIcon}
       accessoryRight={renderItemAccessory}
-      onPress={goToSinglePage}
+      onPress={() => goToSinglePage(item.symbol)}
     />
   );
 
