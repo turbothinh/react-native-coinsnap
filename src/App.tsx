@@ -1,17 +1,14 @@
+
 import React from 'react';
-import {SafeAreaView, ScrollView, StatusBar, Text, View} from 'react-native';
+import { CoinInfoContextProvider } from './context/CoinInfo';
+import { HomeScreen } from './screens/Home';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <StatusBar />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
-          <Text>Hey</Text>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+    <CoinInfoContextProvider>
+      <HomeScreen />
+    </CoinInfoContextProvider>
+  )
 };
 
 export default App;
