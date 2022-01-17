@@ -1,12 +1,11 @@
 
 import React from 'react';
 import { CoinInfoContextProvider } from './context/CoinInfo';
-import { HomeScreen } from './screens/Home';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { OverviewStack } from './router';
+import { BottomTab } from './router';
 
 const App = () => {
   return (
@@ -14,7 +13,7 @@ const App = () => {
       <IconRegistry icons={EvaIconsPack} />
       <ApplicationProvider {...eva} theme={eva.light}>
         <CoinInfoContextProvider>
-          <OverviewStack />
+          <BottomTab />
         </CoinInfoContextProvider>
       </ApplicationProvider>
     </NavigationContainer>

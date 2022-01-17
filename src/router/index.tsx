@@ -1,20 +1,42 @@
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Icon } from '@ui-kitten/components';
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen } from '../screens/Home';
-import { SingleCoinScreen } from '../screens/SingleCoin';
+import { OverviewStack } from './OverviewStack';
+import { ProfileScreen } from '../screens/Profile';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export enum OverviewStackScreens {
-  Home = 'Home',
-  SingleCoin = 'Single'
+export enum BottomTabScreen {
+  Overview = 'Overview',
+  Profile = 'Profile'
 }
 
-export const OverviewStack = () => {
+const colorActive = 'tomato';
+const colorDim = 'gray';
+
+export const BottomTab = () => {
   return (
-    <Stack.Navigator initialRouteName={OverviewStackScreens.Home}>
-      <Stack.Screen name={OverviewStackScreens.Home} component={HomeScreen} />
-      <Stack.Screen name={OverviewStackScreens.SingleCoin} component={SingleCoinScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === BottomTabScreen.Overview) {
+          iconName = focused ? 'home' : 'home-outline';
+        } else if (route.name === BottomTabScreen.Profile) {
+          iconName = focused ? 'person' : 'person-outline';
+        }
+
+        // You can return any component that you like here!
+        return <Icon name={iconName} fill={focused ? colorActive : colorDim} style={{ width: 20, height: 20 }} />;
+      },
+      tabBarActiveTintColor: colorActive,
+      tabBarInactiveTintColor: colorDim,
+    })}
+
+    >
+      <Tab.Screen name={BottomTabScreen.Overview} component={OverviewStack} />
+      <Tab.Screen name={BottomTabScreen.Profile} component={ProfileScreen} />
+    </Tab.Navigator>
   );
 };

@@ -1,6 +1,6 @@
 
 import React, { useContext, useEffect } from 'react';
-import { CoinInfoContext } from '../context/CoinInfo';
+import { CoinInfoContext, currency } from '../context/CoinInfo';
 import { Layout, Text } from '@ui-kitten/components';
 import { useRoute } from '@react-navigation/native';
 
@@ -29,7 +29,7 @@ export const SingleCoinScreen = ({ navigation }: SingleCoinScreenProps) => {
       {(streamedInfo.TYPE === "429") ? (
         <Text category='p2' status="danger" style={{ textAlign: 'center' }}>{streamedInfo.INFO}</Text>
       ) : (
-        <Text category='h3'>Price: {streamedInfo.P}</Text>
+        <Text category='h6'>Price: {streamedInfo.P} {currency}</Text>
       )}
     </Layout>
   );

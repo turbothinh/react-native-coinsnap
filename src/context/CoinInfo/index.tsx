@@ -11,7 +11,7 @@ import { COIN_CAP_URI, CRYPTO_COMPARE_API_KEY, CRYPTO_COMPARE_WSS } from "../../
 const defaultValue = {} as any;
 export const CoinInfoContext = createContext(defaultValue);
 
-const currency = 'USD';
+export const currency = 'USD';
 const streamExchange = 'Coinbase';
 
 /**
@@ -64,6 +64,7 @@ export const CoinInfoContextProvider: FC = ({ children }) => {
 
     ccStreamer.onmessage = function onStreamMessage(message) {
       const data = JSON.parse(message.data);
+      console.log('[streamSinglePrice]: onmessage', data)
 
       dispatch({
         type: STREAM_TRADE_INFO,

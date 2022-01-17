@@ -1,9 +1,8 @@
 
 import React, { useContext, useEffect } from 'react';
 import { CoinInfoContext } from '../context/CoinInfo';
-
 import { Button, Icon, List, ListItem } from '@ui-kitten/components';
-import { OverviewStackScreens } from '../router';
+import { OverviewStackScreens } from '../router/OverviewStack';
 
 type HomeScreenProps = {
   navigation: any;
