@@ -1,7 +1,8 @@
 
 import React, { useContext, useEffect } from 'react';
-import { Text, View } from 'react-native';
 import { CoinInfoContext } from '../context/CoinInfo';
+
+import { Button, Icon, List, ListItem } from '@ui-kitten/components';
 
 export const HomeScreen = () => {
   const coinInfoContext = useContext(CoinInfoContext);
@@ -9,17 +10,37 @@ export const HomeScreen = () => {
 
   useEffect(() => {
     getTopAssets();
-    streamSinglePrice('ETH');
+    // streamSinglePrice('ETH');
   }, [])
 
   useEffect(() => {
-    console.log('>>> streamedInfo', streamedInfo);
+    // console.log('>>> streamedInfo', streamedInfo);
   }, [streamedInfo])
 
+  const addToFavorite = () => {};
+
+  const goToSinglePage = () => {};
+
+  const renderItemAccessory = (props: any) => (
+    <Button size='medium' appearance='ghost' accessoryLeft={<Icon color='grey' name='star-outline'/>} onPress={addToFavorite} />
+  );
+
+  const renderItemIcon = (props: any) => (
+    <Icon {...props} name='arrow-right-outline' />
+  );
+
+  const renderItem = ({ item, index }: any) => (
+    <ListItem
+      key={item.symbol}
+      title={item.symbol}
+      description={`Price: ${parseFloat(item.priceUsd).toFixed(2)} USD`}
+      accessoryLeft={renderItemIcon}
+      accessoryRight={renderItemAccessory}
+      onPress={goToSinglePage}
+    />
+  );
 
   return (
-    <View>
-      {assets.map((a: any) => <Text>{`${a.symbol}: ${a.priceUsd}`}</Text>)}
-    </View>
-  )
+    <List data={assets} renderItem={renderItem} />
+  );
 };
